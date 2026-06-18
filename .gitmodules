@@ -4,3 +4,6 @@
 [submodule "third-parties/egoallo"]
 	path = third-parties/egoallo
 	url = https://github.com/brentyi/egoallo
+[submodule "third-parties/HaWoR"]
+	path = third-parties/HaWoR
+	url = https://github.com/ThunderVVV/HaWoR

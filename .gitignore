@@ -30,3 +30,7 @@ logs/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local benchmark data
+Datasets/
+datas/

@@ -9,10 +9,11 @@ ego_whole_body_tracking/
 ├── workflow/                 # 项目级脚本和适配层
 └── third-parties/
     ├── sqrtVINS/             # rpng/sqrtVINS git submodule
-    └── egoallo/              # brentyi/egoallo git submodule
+    ├── egoallo/              # brentyi/egoallo git submodule
+    └── HaWoR/                # ThunderVVV/HaWoR git submodule
 ```
 
-本地环境统一放在 `.envs/` 下，但 `.envs/` 会被 Git 忽略。
+本地环境和 benchmark 片段分别放在 `.envs/` 与 `datas/` 下；两者都会被 Git 忽略。
 
 ## 第三方仓库
 
@@ -27,6 +28,7 @@ git submodule update --init --recursive
 ```text
 https://github.com/rpng/sqrtVINS
 https://github.com/brentyi/egoallo
+https://github.com/ThunderVVV/HaWoR
 ```
 
 ## 本地环境
@@ -42,22 +44,23 @@ https://github.com/brentyi/egoallo
 ```text
 .envs/sqrtVINS-docker
 .envs/egoallo-uv
+.envs/hawor-uv
 ```
 
-这些目录不会提交到 Git。它们可能包含机器相关脚本、缓存、生成文件、模型/数据路径或密钥。
+EgoAllo 和 HaWoR 默认不建议共用一个 Python 环境。EgoAllo 要求 Python 3.12+，当前安装 Torch 2.7.1；HaWoR README 目标是 Python 3.10、Torch 1.13.0 + CUDA 11.7、NumPy 1.26.4，并且包含若干 CUDA/C++ 扩展。除非后续做过兼容性验证，否则应保持环境隔离。
 
-### sqrtVINS
+## 本地 benchmark 数据
 
-sqrtVINS 上游 README 的原生构建目标是 Ubuntu 20.04 + ROS1/catkin。对于 Ubuntu 24.04 宿主机，优先使用 Docker 或其他隔离的 ROS 环境，不建议直接把 ROS 装进宿主系统。
+benchmark 片段放在本地 `datas/` 下，并被 Git 忽略。当前 EC2 benchmark 数据：
 
-### EgoAllo
-
-EgoAllo 要求 Python 3.12 或更高版本。当前 EC2 上使用 `uv` 在 `.envs/egoallo-uv` 下构建环境，依赖来源是：
-
-```bash
-third-parties/egoallo/pyproject.toml
+```text
+datas/20260508_050222_session1_random_10s
 ```
 
-上游 README 中推理相关的额外内容，例如 JAX CUDA、`jaxls`、checkpoint、示例轨迹和 SMPL-H 模型文件，应在真正需要时单独处理，不提交进本仓库。
+来源对应：
 
-不要提交 `.env` 等本地密钥文件。
+```text
+Z:\DATASETS\Frodobots\robocap_lab\20260508_050222_session1_random_10s
+```
+
+不要提交 `.env`、模型 checkpoint 或数据集文件。

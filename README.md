@@ -9,10 +9,11 @@ ego_whole_body_tracking/
 ├── workflow/                 # Project-level scripts and adapters
 └── third-parties/
     ├── sqrtVINS/             # rpng/sqrtVINS git submodule
-    └── egoallo/              # brentyi/egoallo git submodule
+    ├── egoallo/              # brentyi/egoallo git submodule
+    └── HaWoR/                # ThunderVVV/HaWoR git submodule
 ```
 
-Local environments live under `.envs/`, but `.envs/` is intentionally ignored by Git.
+Local environments and benchmark clips live under `.envs/` and `datas/`; both are intentionally ignored by Git.
 
 ## Third-party repositories
 
@@ -27,6 +28,7 @@ Current submodules:
 ```text
 https://github.com/rpng/sqrtVINS
 https://github.com/brentyi/egoallo
+https://github.com/ThunderVVV/HaWoR
 ```
 
 ## Local environments
@@ -42,22 +44,23 @@ Current local environments on the EC2 instance:
 ```text
 .envs/sqrtVINS-docker
 .envs/egoallo-uv
+.envs/hawor-uv
 ```
 
-These directories are not committed. They may contain machine-specific scripts, caches, generated files, model/data paths, or secrets.
+EgoAllo and HaWoR should not share one Python environment by default. EgoAllo requires Python 3.12+ and currently installs Torch 2.7.1, while HaWoR's README targets Python 3.10, Torch 1.13.0 + CUDA 11.7, NumPy 1.26.4, and several CUDA/C++ extensions. Keep them separate until a compatibility pass proves otherwise.
 
-### sqrtVINS
+## Local benchmark data
 
-The upstream sqrtVINS README targets Ubuntu 20.04 + ROS1/catkin. On Ubuntu 24.04 hosts, prefer Docker or another isolated ROS environment instead of installing ROS directly into the host system.
+Benchmark clips are stored locally under `datas/` and ignored by Git. Current EC2 benchmark data:
 
-### EgoAllo
-
-EgoAllo requires Python 3.12 or newer. The current EC2 environment is being built with `uv` under `.envs/egoallo-uv` from:
-
-```bash
-third-parties/egoallo/pyproject.toml
+```text
+datas/20260508_050222_session1_random_10s
 ```
 
-Inference-specific extras from the upstream README, such as JAX CUDA, `jaxls`, checkpoints, sample trajectories, and SMPL-H model files, should be handled explicitly when needed rather than committed into this repository.
+This mirrors:
 
-Do not commit local secrets such as `.env`.
+```text
+Z:\DATASETS\Frodobots\robocap_lab\20260508_050222_session1_random_10s
+```
+
+Do not commit local secrets such as `.env`, model checkpoints, or dataset files.
