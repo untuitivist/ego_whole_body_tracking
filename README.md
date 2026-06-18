@@ -6,39 +6,30 @@ Workspace for ego whole-body tracking experiments and third-party motion trackin
 
 ```text
 ego_whole_body_tracking/
+├── workflow/                 # Project-level scripts and adapters
 └── third-parties/
-    └── sqrtVINS/              # rpng/sqrtVINS git submodule
+    ├── sqrtVINS/             # rpng/sqrtVINS git submodule
+    └── egoallo/              # brentyi/egoallo git submodule
 ```
 
 Local environments live under `.envs/`, but `.envs/` is intentionally ignored by Git.
 
 ## Third-party repositories
 
-`sqrtVINS` is tracked as a Git submodule:
+Third-party baselines are tracked as Git submodules:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-Current submodule URL:
+Current submodules:
 
 ```text
 https://github.com/rpng/sqrtVINS
+https://github.com/brentyi/egoallo
 ```
 
-## sqrtVINS environment
-
-The current server uses a local Docker-based ROS1 Noetic environment at:
-
-```text
-.envs/sqrtVINS-docker
-```
-
-This directory is not committed. The reason is that environment folders can contain machine-specific scripts, caches, generated files, or secrets.
-
-The upstream sqrtVINS README targets Ubuntu 20.04 + ROS1/catkin. On Ubuntu 24.04 hosts, prefer Docker or another isolated ROS environment instead of installing ROS directly into the host system.
-
-## Environment naming rule
+## Local environments
 
 Environment folders under `.envs/` should use the format:
 
@@ -46,11 +37,27 @@ Environment folders under `.envs/` should use the format:
 <target>-<base>
 ```
 
-Examples:
+Current local environments on the EC2 instance:
 
 ```text
-sqrtVINS-docker
-egoAllo-uv
+.envs/sqrtVINS-docker
+.envs/egoallo-uv
 ```
+
+These directories are not committed. They may contain machine-specific scripts, caches, generated files, model/data paths, or secrets.
+
+### sqrtVINS
+
+The upstream sqrtVINS README targets Ubuntu 20.04 + ROS1/catkin. On Ubuntu 24.04 hosts, prefer Docker or another isolated ROS environment instead of installing ROS directly into the host system.
+
+### EgoAllo
+
+EgoAllo requires Python 3.12 or newer. The current EC2 environment is being built with `uv` under `.envs/egoallo-uv` from:
+
+```bash
+third-parties/egoallo/pyproject.toml
+```
+
+Inference-specific extras from the upstream README, such as JAX CUDA, `jaxls`, checkpoints, sample trajectories, and SMPL-H model files, should be handled explicitly when needed rather than committed into this repository.
 
 Do not commit local secrets such as `.env`.

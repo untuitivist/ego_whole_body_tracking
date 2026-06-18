@@ -1,3 +1,6 @@
 [submodule "third-parties/sqrtVINS"]
 	path = third-parties/sqrtVINS
 	url = https://github.com/rpng/sqrtVINS
+[submodule "third-parties/egoallo"]
+	path = third-parties/egoallo
+	url = https://github.com/brentyi/egoallo
