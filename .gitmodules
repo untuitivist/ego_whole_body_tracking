@@ -7,3 +7,6 @@
 [submodule "third-parties/HaWoR"]
 	path = third-parties/HaWoR
 	url = https://github.com/ThunderVVV/HaWoR
+[submodule "third-parties/Project-Homies-Face-Blurring"]
+	path = third-parties/Project-Homies-Face-Blurring
+	url = git@github.com:frodobots-org/Project-Homies-Face-Blurring.git
