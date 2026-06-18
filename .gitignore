@@ -1,0 +1,32 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment artifacts
+.envs/
+.venv/
+venv/
+
+# Build and runtime outputs
+build/
+devel/
+install/
+log/
+logs/
+*.bag
+*.db3
+*.mcap
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

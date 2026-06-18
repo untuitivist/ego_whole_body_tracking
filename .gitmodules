@@ -1,0 +1,3 @@
+[submodule "third-parties/sqrtVINS"]
+	path = third-parties/sqrtVINS
+	url = https://github.com/rpng/sqrtVINS
