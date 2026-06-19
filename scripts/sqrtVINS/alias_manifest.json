@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "name": "homies_front_stereo_dev0_alias",
+  "description": "Map the local robocap benchmark files to the Homies sqrtVINS segment roles without copying or renaming data files.",
+  "source_data_name": "20260508_050222_session1_random_10s",
+  "homies_session_alias": "session1",
+  "homies_segment_alias": 1,
+  "notes": [
+    "Homies default sqrtVINS pipeline uses left-front + right-front + IMU dev0.",
+    "This benchmark subset has no middle IMU file; Homies dev0 is aliased to robocap_segment1_imu_left.db.",
+    "The middle sensor present in this subset is robocap_segment1_mag_middle.db, which is not consumed by sqrtVINS.",
+    "IMU scale follows Homies create_rosbag_from_db.py: gyro=0.000266316 rad/s/count, accel=0.001197101 m/s^2/count.",
+    "This first pass assumes DB IMU axes are already in the firmware/body convention used by Homies; no chip-to-body axis rotation is applied."
+  ],
+  "active_profile": "front_stereo_dev0",
+  "profiles": {
+    "front_stereo_dev0": {
+      "description": "Homies default SLAM baseline: left-front + right-front + dev0 primary IMU.",
+      "videos": [
+        {
+          "role": "left_front",
+          "homies_alias": "video_dev1_session1_segment1_left-front.mp4",
+          "source_path": "robocap_segment1_video_left_front.mp4",
+          "topic": "/cam1_left_front/image_raw",
+          "frame_id": "cam1_left_front"
+        },
+        {
+          "role": "right_front",
+          "homies_alias": "video_dev5_session1_segment1_right-front.mp4",
+          "source_path": "robocap_segment1_video_right_front.mp4",
+          "topic": "/cam5_right_front/image_raw",
+          "frame_id": "cam5_right_front"
+        }
+      ],
+      "imus": [
+        {
+          "role": "dev0_primary_imu",
+          "homies_alias": "IMUWriter_dev0_session1_segment1.db",
+          "source_path": "robocap_segment1_imu_left.db",
+          "topic": "/imu_mid_0",
+          "frame_id": "imu0_link",
+          "source_note": "Alias: local benchmark has left/right IMU but no middle IMU."
+        }
+      ],
+      "unused_available_inputs": [
+        {"role": "right_eye", "homies_alias": "video_dev0_session1_segment1_right-eye.mp4", "source_path": "robocap_segment1_video_right_eye.mp4"},
+        {"role": "left_eye", "homies_alias": "video_dev2_session1_segment1_left-eye.mp4", "source_path": "robocap_segment1_video_left_eye.mp4"},
+        {"role": "side_left", "source_path": "robocap_segment1_video_left.mp4"},
+        {"role": "side_right", "source_path": "robocap_segment1_video_right.mp4"},
+        {"role": "right_imu", "source_path": "robocap_segment1_imu_right.db"},
+        {"role": "middle_mag", "source_path": "robocap_segment1_mag_middle.db"}
+      ]
+    }
+  },
+  "homies_runtime": {
+    "imu_rate_src_hz": 200,
+    "video_rate_hz": 30,
+    "gyro_scale_rad_s_per_count": 0.000266316,
+    "accel_scale_m_s2_per_count": 0.001197101,
+    "use_mp4_comment_start_time": true,
+    "use_frame_pts_when_available": true,
+    "crop_to_global_sensor_intersection": true,
+    "sqrtvins_args": {
+      "bag_start": 5.0,
+      "win_time": 1.0,
+      "do_bg": true,
+      "dolivetraj": false,
+      "use_stereo": true,
+      "max_cameras": 2
+    }
+  }
+}
