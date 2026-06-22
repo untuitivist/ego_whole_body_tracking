@@ -10,3 +10,6 @@
 [submodule "third-parties/Project-Homies-Face-Blurring"]
 	path = third-parties/Project-Homies-Face-Blurring
 	url = git@github.com:frodobots-org/Project-Homies-Face-Blurring.git
+[submodule "third-parties/DROID-SLAM"]
+	path = third-parties/DROID-SLAM
+	url = https://github.com/princeton-vl/DROID-SLAM.git

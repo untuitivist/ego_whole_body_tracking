@@ -35,3 +35,6 @@ Thumbs.db
 Datasets/
 datas/
 results/
+
+# Local paper references
+.references/
